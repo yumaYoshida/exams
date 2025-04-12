@@ -1,0 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap');
+
+:root {
+  --primary-glow: #00f3ff;
+  --secondary-glow: #7efcf6;
+  --bg-dark: #021114;
+  --bg-lighter: #042a30;
+  --text-primary: #7efcf6;
+  --text-secondary: #b3fcfa;
+  --correct: #00ff88;
+  --incorrect: #ff3660;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: 'Roboto Mono', monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 1px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+
+.grid-effect {
+  background-image:
+    linear-gradient(rgba(0, 243, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 243, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.loading-animation {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(0, 243, 255, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--primary-glow);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 0.5s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(800px);
+  }
+}
+
+/* Main frame styles */
+.main-frame {
+  width: 100%;
+  max-width: 800px;
+  border: 1px solid var(--primary-glow);
+  border-radius: 4px;
+  padding: 1.5rem;
+  box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+  background-color: rgba(4, 42, 48, 0.7);
+  backdrop-filter: blur(5px);
+  position: relative;
+  overflow: hidden;
+  margin: 2rem auto;
+}
+
+.main-frame::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary-glow), transparent);
+  animation: scanline 2s linear infinite;
+}
+
+.heading-glow {
+  text-shadow: 0 0 5px var(--primary-glow);
+}
+
+/* Quiz specific styles */
+.question-frame {
+  border: 1px solid var(--secondary-glow);
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  background-color: rgba(4, 42, 48, 0.5);
+  white-space: pre-line;
+}
+
+.option-button {
+  background-color: rgba(0, 243, 255, 0.1);
+  border: 1px solid var(--secondary-glow);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+  text-align: left;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  display: block;
+}
+
+.option-button:hover {
+  background-color: rgba(0, 243, 255, 0.2);
+  box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+}
+
+.option-button.selected {
+  background-color: rgba(0, 243, 255, 0.3);
+}
+
+.option-button.correct {
+  border-color: var(--correct);
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+}
+
+.option-button.incorrect {
+  border-color: var(--incorrect);
+  box-shadow: 0 0 15px rgba(255, 54, 96, 0.4);
+}
+
+.explanation-frame {
+  border: 1px solid var(--secondary-glow);
+  border-radius: 4px;
+  padding: 1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  background-color: rgba(4, 42, 48, 0.5);
+}
+
+.explanation-frame.correct-frame {
+  border-color: var(--correct);
+}
+
+.explanation-frame.incorrect-frame {
+  border-color: var(--incorrect);
+}
+
+.nav-button {
+  background-color: rgba(0, 243, 255, 0.1);
+  border: 1px solid var(--primary-glow);
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  color: var(--text-primary);
+  font-family: 'Orbitron', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover:not(:disabled) {
+  background-color: rgba(0, 243, 255, 0.2);
+  box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+}
+
+.nav-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.futuristic-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.question-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.question-options button {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.question-options button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 243, 255, 0.4);
+}
